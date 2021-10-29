@@ -1,17 +1,14 @@
-import { useState } from 'react';
-import { useFocusTrap, useMergedRef } from '@mantine/hooks';
+import { useLogger } from '@mantine/hooks';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const focusTrapRef = useFocusTrap();
-  const [value, setValue] = useState('');
+  const [count, setCount] = useState(0);
 
-  return (
-    <div ref={useMergedRef(focusTrapRef)}>
-      <input value={value} type="text" onChange={(e) => { setValue(e.target.value) }} />
-      <input type="text" data-autofocus />
-    </div>
-  );
+  useLogger('Demo', [{ count, hello: 'world' }]);
+  useLogger('Demo2', [{ data: 'NeverChange' }]);
+
+  return <button onClick={() => setCount(value => value + 1)}>Update state({count})</button>;
 }
 
 export default App;
